@@ -10143,3 +10143,8 @@ header.masthead h1 {
 .text-white-75 {
   color: rgba(255, 255, 255, 0.75);
 }
+
+#top-logo {
+    max-width: 15%;
+    max-height: 15%;
+}
