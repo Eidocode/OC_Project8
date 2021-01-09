@@ -85,7 +85,7 @@ DATABASES = {
         'NAME': 'pur_beurre',
         'USER': 'admdjango',
         'PASSWORD': 'django',
-        'HOST': '192.168.1.76',
+        'HOST': '192.168.1.59',
         'PORT': '5432'
     }
 }
