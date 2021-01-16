@@ -34,14 +34,7 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     
                     <ul class="navbar-nav ml-auto my-2 my-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="#account"><form action="" method="" class="ml-auto my-2 my-lg-0">
-                                <input type="text" name="" class="form-control form-control-sm bg-light" placeholder="Chercher...">
-                            </form></a>
-                        </li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#account">Mon compte</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#my_products">Mes aliments</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#logout">Déconnexion</a></li>
+                        {% include 'products/log_users.html' %}
                     </ul>
                 </div>
             </div>
