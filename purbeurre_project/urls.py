@@ -22,8 +22,9 @@ from products import views
 
 urlpatterns = [
     url(r'^$', views.index),
-    url(r'^users/', include('users.urls'))
-    # path('admin/', admin.site.urls),
+    url(r'^users/', include('users.urls')),
+    path('admin/', admin.site.urls),
+    path('', include("django.contrib.auth.urls"))
 ]
 
 if settings.DEBUG:

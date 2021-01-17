@@ -15,6 +15,7 @@
                 <br/>
                 <h2 class="text-white-75 font-weight-light mb-5">Trouvez un produit de substitution pour ceux que vous consommez tous les jours.</h2>
                 <br/>
+                {% if user.is_authenticated %}
                 <form action="" method="" class="ml-auto my-2 my-lg-0">
                     <div class="input-group">
                         <input type="text" name="" class="form-control form-control-lg bg-light" placeholder="Rechercher un produit...">
@@ -23,6 +24,20 @@
                         </div>
                     </div>
                 </form>
+                {% else %}
+                    <div class="ml-auto my-2 my-lg-0">                        
+                        <div class="input-group">
+                            <input type="text" name="" class="form-control form-control-lg bg-light" placeholder="Rechercher un produit..." disabled>
+                            <div class="input-group-append">
+                                <button id="send_btn" class="btn btn-primary" type="submit" disabled>Chercher</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-warning pt-4">
+                        <p>Vous devez vous authentifier pour pouvoir utiliser cette application !</p>
+                        <p>Cliquez <a href="/login">ici</a> pour saisir vos identifiants</p>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </div>
