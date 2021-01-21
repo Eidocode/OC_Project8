@@ -6,9 +6,5 @@
     background-repeat: no-repeat;
     background-attachment: scroll;
     background-size: cover;
+    min-height: 100%;
   }
-
-  #login_page, #account_page, #signup {
-    height: 100%;
-  }
-  

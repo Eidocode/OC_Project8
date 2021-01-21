@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Category(models.Model):
@@ -13,12 +14,6 @@ class Product(models.Model):
     barcode = models.CharField(max_length=50)
     url_img= models.URLField()
     categories = models.ManyToManyField(Category, related_name='products')
-
-
-class User(models.Model):
-    name = models.CharField(max_length=200)
-    email = models.EmailField(max_length=100)
-    added_date = models.DateTimeField(auto_now_add=True)
 
 
 class Favorite(models.Model):

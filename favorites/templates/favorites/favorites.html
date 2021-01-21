@@ -1,0 +1,49 @@
+{% extends 'products/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<header class="page-section sign">
+    <div class="container h-100">
+        <div class="row align-items-center justify-content-center text-center">
+            <div class="col-lg-8 text-center">
+                <h2 class="mt-0">Produits favoris de <i class="font-weight-bold">{{ user.get_short_name }}</i>&nbsp !!!</h2>
+                <hr class="divider my-4" />
+                <p class="mt-0 pt-3 pb-5 font-weight-lighter font-italic">
+                    Retrouvez ici tous vos produits favoris
+                </p>
+            </div>
+
+            <!-- Portfolio-->
+            <div id="portfolio">
+                <div class="container-fluid p-0">
+                    <div class="row no-gutters">
+
+                    {% for product in fav_prod_filtered %}
+                        
+                        <div class="col-lg-4 col-sm-6">
+                            <a class="portfolio-box" href={% static "products/img/portfolio/fullsize/1.jpg" %}>
+                                <img class="img-fluid" src={% static "products/img/portfolio/thumbnails/1.jpg" %} alt="" />
+                                <div class="portfolio-box-caption">
+                                    <div class="project-category text-white-50">{{ product.products.name }}</div>
+                                    <div class="project-name">{{ product.products.name }}</div>
+                                    <h1 class="font-weight-bold">{{ product.products.score }}</h1>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+{% endblock content %}
+
+
+
