@@ -27,7 +27,7 @@ def search(request):
         products = Product.objects.filter(name__icontains=query)
     if not products.exists():
         # Recherche du nom d'une catégorie à la place d'un produit
-        #albums = Album.objects.filter(artists__name__icontains=query)
+        # albums = Album.objects.filter(artists__name__icontains=query)
         pass
 
     title = "Résultats pour la requête " + query

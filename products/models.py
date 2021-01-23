@@ -4,15 +4,17 @@ from django.contrib.auth.models import User
 
 class Category(models.Model):
     name = models.CharField(max_length=200)
+    json_id = models.CharField(max_length=200, unique=True)
+    url = models.CharField(max_length=200)
 
 
 class Product(models.Model):
     name = models.CharField(max_length=200)
-    brand = models.CharField(max_length=200)
-    description = models.TextField()
+    brand = models.CharField(max_length=200, null=True)
+    description = models.TextField(null=True)
     score = models.CharField(max_length=1)
-    barcode = models.CharField(max_length=50)
-    url_img= models.URLField()
+    barcode = models.CharField(max_length=50, unique=True)
+    url_img = models.URLField()
     categories = models.ManyToManyField(Category, related_name='products')
 
 
