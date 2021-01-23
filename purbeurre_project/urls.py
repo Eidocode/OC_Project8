@@ -23,6 +23,7 @@ from products import views
 urlpatterns = [
     url(r'^$', views.index),
     url(r'^users/', include('users.urls')),
+    url(r'^products/', include('products.urls')),
     path('admin/', admin.site.urls),
     path('', include("django.contrib.auth.urls"))
 ]

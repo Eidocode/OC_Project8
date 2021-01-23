@@ -1,0 +1,25 @@
+{% extends 'products/base.html' %}
+
+{% block content %}
+
+<header class="page-section sign">
+    <div class="container h-100">
+        <div class="row align-items-center justify-content-center text-center">
+            <div class="col-lg-8 text-center">
+                <h1 class="mt-0">{{ product.name }}</h1>
+                <hr class="divider my-4" />
+
+                <p class="mt-0 pt-3 pb-5 font-weight-lighter font-italic">
+                    Nutriscore : {{ product.score }}
+                </p>
+
+                <p class="mt-0 pt-3 pb-5 font-weight-lighter font-italic">
+                    {{ product.description }}
+                </p>
+
+            </div>
+        </div>
+    </div>
+</header>
+
+{% endblock content %}

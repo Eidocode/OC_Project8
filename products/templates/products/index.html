@@ -16,9 +16,9 @@
                 <h2 class="text-white-75 font-weight-light mb-5">Trouvez un produit de substitution pour ceux que vous consommez tous les jours.</h2>
                 <br/>
                 {% if user.is_authenticated %}
-                <form action="" method="" class="ml-auto my-2 my-lg-0">
+                <form action="{% url 'search' %}" method="get" class="ml-auto my-2 my-lg-0">
                     <div class="input-group">
-                        <input type="text" name="" class="form-control form-control-lg bg-light" placeholder="Rechercher un produit...">
+                        <input type="text" name='query' class="form-control form-control-lg bg-light" placeholder="Rechercher un produit...">
                         <div class="input-group-append">
                             <button id="send_btn" class="btn btn-primary" type="submit">Chercher</button>
                         </div>
