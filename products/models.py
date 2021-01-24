@@ -4,8 +4,8 @@ from django.contrib.auth.models import User
 
 class Category(models.Model):
     name = models.CharField(max_length=200)
-    json_id = models.CharField(max_length=200, unique=True)
-    url = models.CharField(max_length=200)
+    json_id = models.CharField(max_length=200, default='0000000')
+    url = models.CharField(max_length=200, default='https://faekurl.com')
 
 
 class Product(models.Model):

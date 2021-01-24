@@ -4,33 +4,27 @@ from django.core.management.base import BaseCommand
 
 from random import randrange
 
-from products.models import Category, Product
+from products.models import Category
 
 
 URL = 'https://fr.openfoodfacts.org/'  # /categorie/[name_cat].json
 
-NB_CATEGORIES_TO_GET = 20
 MIN_PRODUCTS_TO_FILTER = 100
-PRODUCTS_PER_PAGE = 20
-PRODUCTS_PER_CATG = 20
-
-NB_TRY = 3
 
 
 class Command(BaseCommand):
     help = 'Adds categories and products in pur_beurre database'
 
-    # def add_arguments(self, parser):
-    #     parser.add_argument('nb_catg', type=int)
+    def add_arguments(self, parser):
+        parser.add_argument('nb_catg', type=int, help='Indicates the number of categories to be created')
 
     def handle(self, *args, **options):
-        print("HELLO")
-        # nb_cats = options.get['nb_catg', None]
-        # print(nb_cats)
-        # return u'NB CATS: %s ' % (nb_cats)
-        # self.set_categories_to_db(nb_cats)
+        nb_cats = options['nb_catg']
+        self.stdout.write("Processing for %s categories..." % nb_cats)
+        self.set_categories_to_db(nb_cats)
 
     def _get_categories(self, min_nb_prod):
+        self.stdout.write("Getting categories containing at least %s products..." % min_nb_prod)
         list_cat = []
         list_cat_filtered = []
 
@@ -50,9 +44,10 @@ class Command(BaseCommand):
         return list_cat_filtered
 
     def _get_random_categories(self, nb_cat):
-        categories = []
         lst = self._get_categories(MIN_PRODUCTS_TO_FILTER)
+        self.stdout.write("Getting %s random categories..." % nb_cat)
 
+        categories = []
         for i in range(nb_cat):
             index = randrange(0, len(lst))
             categories.append(lst.pop(index))
@@ -60,21 +55,26 @@ class Command(BaseCommand):
         return categories
 
     def _compare_with_db(self, nb_cat):
-        categories_list = []
-        new_categories = self._get_random_categories(nb_cat)
         categories_in_db = Category.objects.all()
-
+        json_ids_in_db = []
         for category in categories_in_db:
-            # TODO A VERIFIER !!!
-            if category.json_id not in new_categories['id']:
+            json_ids_in_db.append(category.json_id)
+
+        new_categories = self._get_random_categories(nb_cat)
+        self.stdout.write("Compares the selection with existing data stored in the database...")
+
+        categories_list = []
+        for category in new_categories:
+            if category['id'] not in json_ids_in_db:
                 categories_list.append(category)
             else:
-                print("{} with json_id : {} already in database...".format(category.name, category.json_id))
+                print("{} with json_id : {} already in database...".format(category['name'], category['id']))
 
         return categories_list
 
     def set_categories_to_db(self, nb_cat):
         categories = self._compare_with_db(nb_cat)
+        self.stdout.write("Adding %s categories in the database..." % len(categories))
 
         for category in categories:
             new_category = Category(
@@ -82,5 +82,5 @@ class Command(BaseCommand):
                 json_id=category['id'],
                 url=category['url']
             )
-            print('Added new category : {} to database'.format(category.name))
+            print('Added new category : {} to database'.format(category['name']))
             new_category.save()
