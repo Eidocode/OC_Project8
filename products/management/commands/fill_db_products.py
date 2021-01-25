@@ -78,6 +78,7 @@ class Command(BaseCommand):
 
     def _get_random_products(self, nb_prod):
         categories_db_jsonid = self._get_categories_jsonid()
+        products_db_barcode = self._get_products_db_barcode()
         categories_url = self._get_categories_url()
 
         list_rnd_products = []
@@ -114,7 +115,13 @@ class Command(BaseCommand):
                         barcode = data['barcode'],
                         url_img = data['url_img'],
                     )
-                    prod.save()
+
+                    if data['barcode'] not in products_db_barcode:
+                        prod.save()
+                    else:
+                        print('{} with barcode : {} already in database'.format(data['name'], data['barcode']))
+                        continue
+
 
                     for catg in categories_db_jsonid:
                         if catg['json_id'] in product['categories_tags']:
@@ -145,5 +152,14 @@ class Command(BaseCommand):
             print('This product is not viable')
                     
         return data
+    
+    def _get_products_db_barcode(self):
+        products = Product.objects.all()
+        products_barcode = []
+
+        for product in products:
+            products_barcode.append(product.barcode)
+        
+        return products_barcode
 
         

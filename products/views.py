@@ -45,7 +45,6 @@ def search(request):
     context = {
         'products': products,
         'title': title,
-        'query': query,
         'paginate': True,
     }
 
