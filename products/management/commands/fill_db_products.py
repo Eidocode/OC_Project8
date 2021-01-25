@@ -37,6 +37,18 @@ class Command(BaseCommand):
             categories_url.append(category.url)
 
         return categories_url
+    
+    def _get_categories_jsonid(self):
+        categories_in_db = Category.objects.all()
+        categories_jsonid = []
+        for category in categories_in_db:
+            data = {
+                'id': category.id,
+                'json_id': category.json_id,
+            }
+            categories_jsonid.append(data)
+
+        return categories_jsonid
 
     def _get_products_from_url(self, url):
         try:
@@ -65,10 +77,11 @@ class Command(BaseCommand):
         return lst_all_prods
 
     def _get_random_products(self, nb_prod):
-
+        categories_db_jsonid = self._get_categories_jsonid()
         categories_url = self._get_categories_url()
 
         list_rnd_products = []
+        count = 0
         for url in categories_url:
             products_in_category = self._get_products_from_url(url)
 
@@ -90,9 +103,47 @@ class Command(BaseCommand):
 
             list_rnd_products.append(rnd_prod_catg)
 
-            for p in rnd_prod_catg:
-                print(p['product_name'])
+            for product in rnd_prod_catg:
+                data = self.test_product_keys(product)
+                if data is not None:
+                    prod = Product (
+                        name = data['name'],
+                        brand = data['brand'],
+                        description = data['description'],
+                        score = data['score'],
+                        barcode = data['barcode'],
+                        url_img = data['url_img'],
+                    )
+                    prod.save()
+
+                    for catg in categories_db_jsonid:
+                        if catg['json_id'] in product['categories_tags']:
+                            prod.categories.add(catg['id'])
+                            print('Add relation between {} and category id {}'.format(data['name'], catg['id']))
+
+                    count+=1
             print('')
 
+        print(str(count) + ' viables products.')
 
         return list_rnd_products
+        
+    def test_product_keys(self, product):
+
+        data = None
+        try:
+            data = {
+                'name': product['product_name'],
+                'brand': product['brands'],
+                'description': product['ingredients_text'], #description
+                'score': product['nutriscore_grade'],
+                'barcode': product['code'],
+                'categories': product['categories_tags'],
+                'url_img': product['image_url'],
+            }
+        except KeyError:
+            print('This product is not viable')
+                    
+        return data
+
+        
