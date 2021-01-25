@@ -40,8 +40,8 @@ def search(request):
         products = paginator.page(1)
     except EmptyPage:
         products = paginator.page(paginator.num_pages)
-    
-    title = "Résultats de la recherche"
+
+    title = "Résultats de la recherche {}".format(query)
     context = {
         'products': products,
         'title': title,

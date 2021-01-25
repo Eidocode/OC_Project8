@@ -49,10 +49,10 @@
                     <ul class="pager">
                         {% if products.has_previous %}
 
-                            <li><a href="?page={{ products.previous_page_number }}">Précédent</a></li>
+                            <li><a href="{{ request.get_full_path }}&page={{ products.previous_page_number }}">Précédent</a></li>
                         {% endif %}
                         {% if products.has_next %}
-                            <li><a href="?page={{ products.next_page_number }}">Suivant</a></li>
+                            <li><a href="{{ request.get_full_path }}&page={{ products.next_page_number }}">Suivant</a></li>
                         {% endif %}
                     </ul>
                 </nav>
