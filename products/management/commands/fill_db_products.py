@@ -122,7 +122,6 @@ class Command(BaseCommand):
                         print('{} with barcode : {} already in database'.format(data['name'], data['barcode']))
                         continue
 
-
                     for catg in categories_db_jsonid:
                         if catg['json_id'] in product['categories_tags']:
                             prod.categories.add(catg['id'])

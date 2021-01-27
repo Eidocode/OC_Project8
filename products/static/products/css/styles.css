@@ -10154,3 +10154,7 @@ header.masthead h1 {
     max-width: 15%;
     max-height: 15%;
 }
+
+.bg-grey {
+  background-color: #c4c4c4;
+}
