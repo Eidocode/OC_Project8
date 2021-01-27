@@ -25,9 +25,9 @@
                     {% else %}
                         {% for product in products %}
                         
-                            <div width="150" height="200" class="py-2 px-4 col-lg-4 col-sm-6">
-                                <a class="portfolio-box" href={% url 'detail' product_id=product.id %}>
-                                    <img class="img"  width="150" height="200" src={{ product.url_img }} alt="" />
+                            <div width="180" height="200" class="py-2 px-2 col-lg-4 col-sm-6">
+                                <a class="portfolio-box bg-thumbs shadow rounded border" href={% url 'detail' product_id=product.id %}>
+                                    <img class="img my-4 rounded"  width="180" height="200" src={{ product.url_img }} alt="" />
                                     <div class="portfolio-box-caption">
                                         <div class="project-category text-white-50">{{ product.brand }}</div>
                                         <div class="project-name">{{ product.name }}</div>

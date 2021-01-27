@@ -10155,6 +10155,6 @@ header.masthead h1 {
     max-height: 15%;
 }
 
-.bg-grey {
-  background-color: #c4c4c4;
+.bg-thumbs {
+  background-color: rgba(0, 0, 0, 0.25);
 }
