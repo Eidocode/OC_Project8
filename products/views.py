@@ -1,8 +1,9 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from random import randrange
 
-from .models import Product
+from .models import Product, Category
 
 
 def index(request):
@@ -10,10 +11,31 @@ def index(request):
 
 
 def detail(request, product_id):
+    substitutes = []
     product = get_object_or_404(Product, pk=product_id)
+    category = Category.objects.filter(products__id=product.id)
 
+    all_prods = []
+    for catg in category:
+        prods = Product.objects.filter(categories__id=catg.id)
+        for prod in prods:
+            if (prod.score <= product.score):
+                print(product.score + " : " + prod.score)
+                all_prods.append(prod)
+    
+    nb_prod = 6
+    if (len(all_prods) < nb_prod):
+        nb_prod = len(all_prods)
+
+    for i in range(nb_prod):
+        index = randrange(0, len(all_prods))
+        substitutes.append(all_prods.pop(index))
+        i += 1
+
+    print(len(substitutes))
     context = {
         'product': product,
+        'substitutes': substitutes,
     }
 
     return render(request, 'products/detail.html', context)
