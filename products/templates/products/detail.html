@@ -5,7 +5,7 @@
 <header class="masthead2">
     <div class="w-100 text-white justify-content-center text-center">
         <div class="banner" style="background-image: url({{ product.url_img }})" alt="" />
-            <h1 class="pt-4">{{ product.name }}</h1>
+            <h1 class="pt-4">{{ product.name|truncatechars:40 }}</h1>
             <hr class="divider mt-3" />
             <p class="mt-5"><h4>Nutriscore</h4></p>
             {% with 'A B C D E' as list %}
@@ -43,20 +43,35 @@
                         {% for sub in substitutes %}
                             
                             <div width="180" height="200" class="py-1 px-1 col-lg-4 col-sm-6">
-                                <div class="portfolio-box bg-thumbs shadow rounded-lg border border-white"%}>
-                                    <img class="img my-4 rounded-lg shadow"  width="180" height="200" src={{ sub.url_img }} alt="" />
+                                <a class="portfolio-box bg-thumbs shadow rounded-lg border border-white" >
+                                    <img class="img my-4 rounded-lg shadow"  width="180" height="200" src={{ sub.url_img }} alt=""/>
                                     <div class="portfolio-box-caption">
                                         <div class="project-category text-white-50">{{ sub.brand }}</div>
                                         <div class="project-name">{{ sub.name|truncatechars:40 }}</div>
                                         <h2 class="font-weight-bold pt-4">{{ sub.score|upper }}</h2>
                                     </div>
-                                </div>
-                                <div class="mb-4 mt-2">
-                                    <a href="www.google.fr">
-                                        <i class="fas fa-save" aria-hidden="true"></i>
-                                        Enregistrer
-                                    </a>
-                                </div>
+                                </a>
+                                
+                                {% if sub.id in fav_prods_id %}
+
+                                    <div class="mb-5 mt-3">
+                                        <button class="btn btn-outline-secondary btn-sm" role="button" title="Produit déjà enregistré" disabled>
+                                            <i class="fas fa-save" aria-hidden="true"></i>
+                                            Enregistrer
+                                        </button>
+                                    </div>
+
+                                {% else %}
+
+                                    <div class="mb-5 mt-3">
+                                        <a class="btn btn-outline-primary btn-sm" href={% url 'favorite' product_id=sub.id %} role="button">
+                                            <i class="fas fa-save" aria-hidden="true"></i>
+                                            Enregistrer
+                                        </a>
+                                    </div>
+
+                                {% endif %}
+
                             </div>
 
                         {% endfor %}
@@ -64,9 +79,6 @@
                     </div>
                 </div>
             </div>
-
-
-
 
         </div>
     </div>

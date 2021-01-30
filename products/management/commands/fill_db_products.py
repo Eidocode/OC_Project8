@@ -107,13 +107,16 @@ class Command(BaseCommand):
             for product in rnd_prod_catg:
                 data = self.test_product_keys(product)
                 if data is not None:
-                    prod = Product (
-                        name = data['name'],
-                        brand = data['brand'],
-                        description = data['description'],
-                        score = data['score'],
-                        barcode = data['barcode'],
-                        url_img = data['url_img'],
+                    prod = Product(
+                        name=data['name'],
+                        brand=data['brand'],
+                        description=data['description'],
+                        score=data['score'],
+                        barcode=data['barcode'],
+                        url_img_small=data['url_img_small'],
+                        url_img=data['url_img'],
+                        url_off=data['url_off'],
+                        url_img_nutrition=data['url_img_nutrition'],
                     )
 
                     if data['barcode'] not in products_db_barcode:
@@ -127,7 +130,7 @@ class Command(BaseCommand):
                             prod.categories.add(catg['id'])
                             print('Add relation between {} and category id {}'.format(data['name'], catg['id']))
 
-                    count+=1
+                    count += 1
             print('')
 
         print(str(count) + ' viables products.')
@@ -141,11 +144,14 @@ class Command(BaseCommand):
             data = {
                 'name': product['product_name'],
                 'brand': product['brands'],
-                'description': product['ingredients_text'], #description
+                'description': product['ingredients_text'],
                 'score': product['nutriscore_grade'],
                 'barcode': product['code'],
                 'categories': product['categories_tags'],
                 'url_img': product['image_url'],
+                'url_img_small': product['image_small_url'],
+                'url_off': product['url'],
+                'url_img_nutrition': product['image_nutrition_url']
             }
         except KeyError:
             print('This product is not viable')

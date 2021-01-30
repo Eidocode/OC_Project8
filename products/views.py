@@ -1,9 +1,9 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from random import randrange
 
-from .models import Product, Category
+from .models import Product, Category, Favorite
 
 
 def index(request):
@@ -12,6 +12,7 @@ def index(request):
 
 def detail(request, product_id):
     substitutes = []
+    current_user = request.user
     product = get_object_or_404(Product, pk=product_id)
     category = Category.objects.filter(products__id=product.id)
 
@@ -22,7 +23,7 @@ def detail(request, product_id):
             if (prod.score <= product.score):
                 print(product.score + " : " + prod.score)
                 all_prods.append(prod)
-    
+
     nb_prod = 6
     if (len(all_prods) < nb_prod):
         nb_prod = len(all_prods)
@@ -32,13 +33,35 @@ def detail(request, product_id):
         substitutes.append(all_prods.pop(index))
         i += 1
 
+    qs_fav = Favorite.objects.filter(users__id=current_user.id)
+    fav_prods_id = []
+    for fav in qs_fav:
+        fav_prods_id.append(fav.products.id)
+
+    print(fav_prods_id)
     print(len(substitutes))
     context = {
         'product': product,
         'substitutes': substitutes,
+        'fav_prods_id': fav_prods_id
     }
 
     return render(request, 'products/detail.html', context)
+
+
+def favorite(request, product_id):
+    current_user = request.user
+    product = get_object_or_404(Product, pk=product_id)
+
+    new_fav = Favorite(
+        products=product,
+        users=current_user
+    )
+    new_fav.save()
+
+    print(product.name + " a été ajouté aux favoris")
+
+    return redirect(request.META['HTTP_REFERER'])
 
 
 def search(request):

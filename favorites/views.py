@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
 
-from products.models import Product, Favorite
+from products.models import Favorite
 
 
 def favorites(request):
