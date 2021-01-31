@@ -26,7 +26,7 @@
                         {% for product in products %}
                         
                             <div width="180" height="200" class="py-1 px-1 col-lg-4 col-sm-6">
-                                <a class="portfolio-box bg-thumbs shadow rounded-lg border border-white" href={% url 'detail' product_id=product.id %}>
+                                <a class="portfolio-box bg-thumbs shadow rounded-lg border border-white" href={% url 'result' product_id=product.id %}>
                                     <img class="img my-4 rounded-lg shadow"  width="180" height="200" src={{ product.url_img }} alt="" />
                                     <div class="portfolio-box-caption">
                                         <div class="project-category text-white-50">{{ product.brand }}</div>
@@ -68,7 +68,3 @@
 </header>
 
 {% endblock content %}
-
-
-
-

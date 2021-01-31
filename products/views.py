@@ -10,7 +10,7 @@ def index(request):
     return render(request, 'products/index.html')
 
 
-def detail(request, product_id):
+def result(request, product_id):
     substitutes = []
     current_user = request.user
     product = get_object_or_404(Product, pk=product_id)
@@ -44,6 +44,16 @@ def detail(request, product_id):
         'product': product,
         'substitutes': substitutes,
         'fav_prods_id': fav_prods_id
+    }
+
+    return render(request, 'products/result.html', context)
+
+
+def detail(request, product_id):
+    product = get_object_or_404(Product, pk=product_id)
+
+    context = {
+        'product': product
     }
 
     return render(request, 'products/detail.html', context)
