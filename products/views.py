@@ -59,7 +59,7 @@ def detail(request, product_id):
     return render(request, 'products/detail.html', context)
 
 
-def favorite(request, product_id):
+def add_fav(request, product_id):
     current_user = request.user
     product = get_object_or_404(Product, pk=product_id)
 
@@ -96,7 +96,7 @@ def search(request):
     except EmptyPage:
         products = paginator.page(paginator.num_pages)
 
-    title = "Résultats de la recherche {}".format(query)
+    title = "Résultats de la recherche : {}".format(query)
     context = {
         'products': products,
         'title': title,

@@ -8,12 +8,12 @@
     <div class="container h-100">
         <div class="row align-items-center justify-content-center text-center">
             <div class="col-lg-8 text-center">
-                <h3 class="mt-0">{{ title }}</h3>
+                <h2 class="mt-0">{{ title }}</h2>
                 <hr class="divider my-3" />
             </div>
 
             <!-- Portfolio-->
-            <div id="portfolio" class="mt-2 mb-4">
+            <div id="portfolio" class="pt-5 mb-5">
                 <div class="container-fluid p-0">
                     <div class="row no-gutters">
 
@@ -25,7 +25,7 @@
                     {% else %}
                         {% for product in products %}
                         
-                            <div width="180" height="200" class="py-1 px-1 col-lg-4 col-sm-6">
+                            <div width="180" height="200" class="py-3 px-1 col-lg-4 col-sm-6">
                                 <a class="portfolio-box bg-thumbs shadow rounded-lg border border-white" href={% url 'result' product_id=product.id %}>
                                     <img class="img my-4 rounded-lg shadow"  width="180" height="200" src={{ product.url_img }} alt="" />
                                     <div class="portfolio-box-caption">
@@ -50,15 +50,15 @@
                 <nav aria-label="Search results pages">
                     <ul class="pagination justify-content-center">
                         {% if products.has_previous %}
-                            <li class="page-item rounded-lg shadow"><a class="page-link" href="{{ request.get_full_path }}&page={{ products.previous_page_number }}"><<</a></li>
+                            <li class="page-item rounded-lg shadow"><a class="page-link" href="{{ request.get_full_path }}&page={{ products.previous_page_number }}"><i class="fas fa-arrow-left"></i></a></li>
                         {% else %}
-                            <li class="page-item disabled rounded-lg shadow"><a class="page-link" href=""><<</a></li>
+                            <li class="page-item disabled rounded-lg shadow"><a class="page-link" href=""><i class="fas fa-arrow-left"></i></a></li>
                         {% endif %}
-                        <li class="page-item disabled rounded-lg shadow"><a class="page-link">- Page +</a></li>
+                        <li class="page-item disabled rounded-lg shadow font-weight-bold"><a class="page-link"><i class="fas fa-minus"></i>&nbsp Page &nbsp<i class="fas fa-plus"></i></a></li>
                         {% if products.has_next %}
-                            <li class="page-item rounded-lg shadow"><a class="page-link" href="{{ request.get_full_path }}&page={{ products.next_page_number }}">>></a></li>
+                            <li class="page-item rounded-lg shadow"><a class="page-link" href="{{ request.get_full_path }}&page={{ products.next_page_number }}"><i class="fas fa-arrow-right"></i></a></li>
                         {% else %}
-                            <li class="page-item disabled rounded-lg shadow"><a class="page-link" href="">>></a></li>
+                            <li class="page-item disabled rounded-lg shadow"><a class="page-link" href=""><i class="fas fa-arrow-right"></i></a></li>
                         {% endif %}
                     </ul>
                 </nav>

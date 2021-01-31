@@ -1,38 +1,17 @@
-{% extends 'products/base.html' %}
+{% extends 'products/base_product.html' %}
 
 {% block content %}
 
-<header class="masthead2">
-    <div class="w-100 text-white justify-content-center text-center">
-        <div class="banner" style="background-image: url({{ product.url_img }})" alt="" />
-            <h1 class="pt-4">{{ product.name|truncatechars:40 }}</h1>
-            <hr class="divider mt-3" />
-            <p class="mt-5"><h4>Nutriscore</h4></p>
-            {% with 'A B C D E' as list %}
-                <ul class="list-inline">
-                {% for score in list.split %}
-                    {% if score|upper == product.score|upper %}
-                        {% if score|upper < "C" %}
-                            <li class="list-inline-item font-weight-bold text-success"><h1>{{ score|upper }}</h1></li>
-                        {% elif score|upper == "C" %}
-                            <li class="list-inline-item font-weight-bold text-warning"><h1>{{ score|upper }}</h1></li>
-                        {% else %}
-                            <li class="list-inline-item font-weight-bold text-danger"><h1>{{ score|upper }}</h1></li>
-                        {% endif %}
-                    {% else %}
-                        <li class="list-inline-item"><h2>{{ score|upper }}</h2></li>
-                    {% endif %}
-                {% endfor %}
-                </ul>
-            {% endwith %}
-        </div>
-    </div>
-</header>
-
-<section class="sign">
+<section class="product">
     <div class="container">
+        <div class="align-items-center justify-content-center text-center">
+            <a class="shadow btn btn-primary" href={% url 'detail' product_id=product.id %} role="button">
+                Consulter la fiche de ce produit
+            </a>
+        </div>
         <div class="row align-items-center justify-content-center text-center">
-            <div class="col-lg-8 text-center">
+            
+            <div class="col-lg-8 text-center mt-5">
                 <h2 class="">Vous pouvez remplacer ce produit par :</h2>
             </div>
 
@@ -57,16 +36,16 @@
                                     <div class="mb-5 mt-3">
                                         <button class="btn btn-outline-secondary btn-sm" role="button" title="Produit déjà enregistré" disabled>
                                             <i class="fas fa-save" aria-hidden="true"></i>
-                                            Enregistrer
+                                            &nbsp Enregistrer
                                         </button>
                                     </div>
 
                                 {% else %}
 
                                     <div class="mb-5 mt-3">
-                                        <a class="btn btn-outline-primary btn-sm" href={% url 'favorite' product_id=sub.id %} role="button">
+                                        <a class="btn btn-outline-primary btn-sm" href={% url 'add_fav' product_id=sub.id %} role="button">
                                             <i class="fas fa-save" aria-hidden="true"></i>
-                                            Enregistrer
+                                            &nbsp Enregistrer
                                         </a>
                                     </div>
 
