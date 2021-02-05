@@ -81,10 +81,10 @@ def search(request):
         products = Product.objects.all().order_by('id')
     else:
         products = Product.objects.filter(name__icontains=query).order_by('-id')
-    # if not products.exists():
-    #     # Recherche du nom d'une catégorie à la place d'un produit
-    #     # albums = Album.objects.filter(artists__name__icontains=query)
-    #     pass
+
+    if not products.exists():
+        # Recherche du nom d'une catégorie à la place d'un produit
+        products = Product.objects.filter(categories__name__icontains=query).order_by('-id')
 
     paginator = Paginator(products, 6)
     page = request.GET.get('page')

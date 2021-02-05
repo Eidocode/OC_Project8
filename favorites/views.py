@@ -1,7 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-
 
 from products.models import Favorite
 
@@ -26,3 +25,13 @@ def favorites(request):
         'paginate': True,
     }
     return render(request, 'favorites/favorites.html', context)
+
+
+def remove_from_fav(request, favorite_id):
+    favorite = get_object_or_404(Favorite, pk=favorite_id)
+    favorite.delete()
+
+    print("{}, {} a été supprimé des favoris".format(favorite.products.name, favorite.products.brand))
+
+    return redirect(request.META['HTTP_REFERER'])
+    

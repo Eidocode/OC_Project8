@@ -13,7 +13,7 @@
             </div>
 
             <!-- Portfolio-->
-            <div id="portfolio" class="pt-5 mb-5">
+            <div id="portfolio" class="pt-5 mb-3 w-100">
                 <div class="container-fluid p-0">
                     <div class="row no-gutters">
 
@@ -25,13 +25,13 @@
                     {% else %}
                         {% for product in products %}
                         
-                            <div width="180" height="200" class="py-3 px-1 col-lg-4 col-sm-6">
+                            <div width="180" height="200" class="py-1 px-1 col-lg-4 col-sm-6">
                                 <a class="portfolio-box bg-thumbs shadow rounded-lg border border-white" href={% url 'result' product_id=product.id %}>
                                     <img class="img my-4 rounded-lg shadow"  width="180" height="200" src={{ product.url_img }} alt="" />
                                     <div class="portfolio-box-caption">
                                         <div class="project-category text-white-50">{{ product.brand }}</div>
                                         <div class="project-name">{{ product.name }}</div>
-                                        <h1 class="font-weight-bold pt-2">{{ product.score|upper }}</h1>
+                                        <h2 class="font-weight-bold pt-4">{{ product.score|upper }}</h2>
                                     </div>
                                 </a>
                             </div>

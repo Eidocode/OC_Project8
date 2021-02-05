@@ -19,6 +19,7 @@
                 <form action="{% url 'search' %}" method="get" class="ml-auto my-2 my-lg-0">
                     <div class="input-group">
                         <input type="text" name='query' class="form-control form-control-lg bg-light" placeholder="Rechercher un produit...">
+                        {% csrf_token %}
                         <div class="input-group-append">
                             <button id="send_btn" class="btn btn-primary" type="submit">Chercher</button>
                         </div>
