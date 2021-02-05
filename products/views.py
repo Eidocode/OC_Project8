@@ -2,12 +2,21 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from random import randrange
+from unidecode import unidecode
 
 from .models import Product, Category, Favorite
+from .forms import SearchForm
 
 
 def index(request):
-    return render(request, 'products/index.html')
+    form = SearchForm(request.GET)
+
+    if form.is_valid():
+        search(request)
+    else:
+        form = SearchForm()
+
+    return render(request, 'products/index.html', {'form': form})
 
 
 def result(request, product_id):
@@ -75,7 +84,7 @@ def add_fav(request, product_id):
 
 
 def search(request):
-    query = request.GET.get('query')
+    query = unidecode(request.GET.get('search')).lower()
 
     if not query:
         products = Product.objects.all().order_by('id')
