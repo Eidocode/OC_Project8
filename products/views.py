@@ -9,12 +9,11 @@ from .forms import SearchForm
 
 
 def index(request):
-    form = SearchForm(request.GET)
 
-    if form.is_valid():
-        search(request)
-    else:
+    if request.GET.get(0) is None:
         form = SearchForm()
+    else:
+        search(request)
 
     return render(request, 'products/index.html', {'form': form})
 
@@ -86,30 +85,41 @@ def add_fav(request, product_id):
 def search(request):
     query = unidecode(request.GET.get('search')).lower()
 
-    if not query:
-        products = Product.objects.all().order_by('id')
+    form = SearchForm(request.GET)
+
+    if form.is_valid():
+
+        if not query:
+            products = Product.objects.all().order_by('id')
+        else:
+            products = Product.objects.filter(name__icontains=query).order_by('-id')
+
+        if not products.exists():
+            # Recherche du nom d'une catégorie à la place d'un produit
+            products = Product.objects.filter(categories__name__icontains=query).order_by('-id')
+
+        paginator = Paginator(products, 6)
+        page = request.GET.get('page')
+
+        try:
+            products = paginator.page(page)
+        except PageNotAnInteger:
+            products = paginator.page(1)
+        except EmptyPage:
+            products = paginator.page(paginator.num_pages)
+
+        title = "Résultats de la recherche : {}".format(query)
+        context = {
+            'products': products,
+            'title': title,
+            'paginate': True,
+            'form': form
+        }
+
+        return render(request, 'products/search.html', context)
+    
     else:
-        products = Product.objects.filter(name__icontains=query).order_by('-id')
-
-    if not products.exists():
-        # Recherche du nom d'une catégorie à la place d'un produit
-        products = Product.objects.filter(categories__name__icontains=query).order_by('-id')
-
-    paginator = Paginator(products, 6)
-    page = request.GET.get('page')
-
-    try:
-        products = paginator.page(page)
-    except PageNotAnInteger:
-        products = paginator.page(1)
-    except EmptyPage:
-        products = paginator.page(paginator.num_pages)
-
-    title = "Résultats de la recherche : {}".format(query)
-    context = {
-        'products': products,
-        'title': title,
-        'paginate': True,
-    }
-
-    return render(request, 'products/search.html', context)
+        form = SearchForm()
+        print('le formulaire n est pas valide')
+        return render(request, 'products/index.html', {'form': form})
+        
