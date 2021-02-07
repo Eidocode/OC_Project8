@@ -46,8 +46,8 @@ def result(request, product_id):
     for fav in qs_fav:
         fav_prods_id.append(fav.products.id)
 
-    print(fav_prods_id)
-    print(len(substitutes))
+    # print(fav_prods_id)
+    # print(len(substitutes))
     context = {
         'product': product,
         'substitutes': substitutes,
@@ -88,15 +88,17 @@ def search(request):
     form = SearchForm(request.GET)
 
     if form.is_valid():
+        result = True
 
         if not query:
-            products = Product.objects.all().order_by('id')
+            products = Product.objects.filter(categories__name__icontains=query).order_by('-id')
         else:
             products = Product.objects.filter(name__icontains=query).order_by('-id')
 
         if not products.exists():
             # Recherche du nom d'une catégorie à la place d'un produit
-            products = Product.objects.filter(categories__name__icontains=query).order_by('-id')
+            result = False
+            products = Product.objects.all().order_by('id')
 
         paginator = Paginator(products, 6)
         page = request.GET.get('page')
@@ -108,8 +110,13 @@ def search(request):
         except EmptyPage:
             products = paginator.page(paginator.num_pages)
 
-        title = "Résultats de la recherche : {}".format(query)
+        if result:
+            title = "Résultats de la recherche : {}".format(query)
+        else:
+            title = "Aucun résultat pour la recherche : {}".format(query)
+
         context = {
+            'is_result': result,
             'products': products,
             'title': title,
             'paginate': True,
@@ -117,9 +124,7 @@ def search(request):
         }
 
         return render(request, 'products/search.html', context)
-    
+
     else:
-        form = SearchForm()
         print('le formulaire n est pas valide')
         return render(request, 'products/index.html', {'form': form})
-        

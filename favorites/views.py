@@ -8,7 +8,7 @@ from products.models import Favorite
 def favorites(request):
     current_user = request.user
     fav_products = Favorite.objects.all()
-    fav_prod_filtered = fav_products.filter(users_id=current_user)
+    fav_prod_filtered = fav_products.filter(users_id=current_user).order_by('-id')
 
     paginator = Paginator(fav_prod_filtered, 6)
     page = request.GET.get('page')

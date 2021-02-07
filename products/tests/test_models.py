@@ -29,17 +29,17 @@ class CategoryModelTest(TestCase):
         category = Category.objects.get(id=1)
         max_length = category._meta.get_field('json_id').max_length
         self.assertEquals(max_length, 200)
-    
+
     def test_jsonid_is_unique(self):
         category = Category.objects.get(id=1)
         unique = category._meta.get_field('json_id').unique
         self.assertTrue(unique)
-    
+
     def test_object_name_is_name(self):
         category = Category.objects.get(id=1)
         object_name = category.name
         self.assertEquals(object_name, str(category))
-    
+
 
 class ProductModelTest(TestCase):
 
@@ -57,32 +57,32 @@ class ProductModelTest(TestCase):
             url_off='https://www.openfoodfacts.com/poisson/saumon/url_off',
             url_img_nutrition = 'https://www.openfoodfacts.com/poisson/saumon/url_img_nutrition',
         )
-    
+
     def test_name_max_length(self):
         product = Product.objects.get(id=1)
         max_length = product._meta.get_field('name').max_length
         self.assertEquals(max_length, 200)
-    
+
     def test_brand_max_length(self):
         product = Product.objects.get(id=1)
         max_length = product._meta.get_field('brand').max_length
         self.assertEquals(max_length, 200)
-    
+
     def test_score_max_length(self):
         product = Product.objects.get(id=1)
         max_length = product._meta.get_field('score').max_length
         self.assertEquals(max_length, 1)
-    
+
     def test_barcode_max_length(self):
         product = Product.objects.get(id=1)
         max_length = product._meta.get_field('barcode').max_length
         self.assertEquals(max_length, 50)
-    
+
     def test_barcode_is_unique(self):
         product = Product.objects.get(id=1)
         unique = product._meta.get_field('barcode').unique
         self.assertTrue(unique)
-    
+
     def test_object_name_is_name_brand_barcode(self):
         product = Product.objects.get(id=1)
         object_name = f'{product.name}, {product.brand}, {product.barcode}'

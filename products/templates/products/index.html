@@ -23,7 +23,16 @@
                             <button id="send_btn" class="btn btn-primary" type="submit">Chercher</button>
                         </div>
                     </div>
-                    <div class="text-white-75 font-weight-lighter font-italic pt-5">
+                    {% if form.errors %}
+                        <div class="text-danger pt-2">
+                            {% for field in form%}
+                                {% for error in field.errors%}
+                                    {{ error|escape }}
+                                {% endfor %}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    <div class="text-white-75 font-weight-lighter font-italic pt-4">
                         <p>Saisissez un produit que vous souhaitez consulter dans la barre</p>
                         <p>de recherche ci-dessus</p>
                     </div>
