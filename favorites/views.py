@@ -34,4 +34,4 @@ def remove_from_fav(request, favorite_id):
     print("{}, {} a été supprimé des favoris".format(favorite.products.name, favorite.products.brand))
 
     return redirect(request.META['HTTP_REFERER'])
-    
+

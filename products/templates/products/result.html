@@ -23,7 +23,7 @@
                             
                             <div width="180" height="200" class="py-1 px-1 col-lg-4 col-sm-6">
                                 <a class="portfolio-box bg-thumbs shadow rounded-lg border border-white"  href={% url 'detail' product_id=sub.id %}>
-                                    <img class="img my-4 rounded-lg shadow"  width="180" height="200" src={{ sub.url_img }} alt=""/>
+                                    <img class="img my-4 rounded-lg shadow" style="max-width: 90%; max-height: 90%;" height="200" src={{ sub.url_img }} alt=""/>
                                     <div class="portfolio-box-caption">
                                         <div class="project-category text-white-50">{{ sub.brand }}</div>
                                         <div class="project-name">{{ sub.name|truncatechars:40 }}</div>
