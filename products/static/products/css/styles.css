@@ -10184,7 +10184,11 @@ header.masthead h1 {
 }
 
 .error404{
-    background-image:url("..\\img\\404.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
+  background: linear-gradient(to bottom, rgba(92, 77, 66, 0.5) 0%, rgba(92, 77, 66, 0.5) 100%), url("..\\img\\404.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  height: 100%;
+  min-height: 100%;
+  display: block
 }
