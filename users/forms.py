@@ -1,12 +1,11 @@
 from django import forms
-from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 
 class SignupForm(UserCreationForm):
     """
-    docstring
+    class used when registering a new user
     """
     first_name = forms.CharField()
     last_name = forms.CharField()

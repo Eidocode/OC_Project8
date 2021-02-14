@@ -28,6 +28,7 @@ urlpatterns = [
     path('', include("django.contrib.auth.urls"))
 ]
 
+# Debug toolbar
 if settings.DEBUG:
     import debug_toolbar
     urlpatterns = [
