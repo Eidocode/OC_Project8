@@ -21,6 +21,13 @@ def index(request):
     return render(request, 'products/index.html', {'form': form})
 
 
+def mentions(request):
+    """
+    Used for mentions page
+    """
+    return render(request, 'products/mentions.html')
+
+
 def result(request, product_id):
     """
     Used for result page

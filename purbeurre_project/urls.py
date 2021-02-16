@@ -24,6 +24,8 @@ urlpatterns = [
     url(r'^$', views.index, name="index"),
     url(r'^users/', include('users.urls')),
     url(r'^products/', include('products.urls')),
+    url(r'^mentions/', views.mentions, name="mentions"),
+
     path('manage/', admin.site.urls),
     path('', include("django.contrib.auth.urls"))
 ]
