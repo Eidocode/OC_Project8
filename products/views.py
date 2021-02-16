@@ -124,19 +124,19 @@ def search(request):
         # Boolean used if query match (True) or not (False)
         result = True
 
-        if not query:
+        # Returns products based on query
+        products = Product.objects.filter(
+                    name__icontains=query).order_by('-id')
+
+        if not products.exists():
+            print('recherche category')
             # Returns products from a category name based on query
             products = Product.objects.filter(
                         categories__name__icontains=query).order_by('-id')
-        else:
-            # Returns products based on query
-            products = Product.objects.filter(
-                        name__icontains=query).order_by('-id')
-
-        if not products.exists():
-            result = False
-            # Returns all products from database
-            products = Product.objects.all().order_by('id')
+            if not products.exists():
+                result = False
+                # Returns all products from database
+                products = Product.objects.all().order_by('id')
 
         # Init pagination with 6 products
         paginator = Paginator(products, 6)
