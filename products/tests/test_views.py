@@ -319,3 +319,24 @@ class FavoritePageTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTrue('paginate' in response.context)
         self.assertTrue(response.context['paginate'] is True)
+
+
+class MentionPageTestCase(TestCase):
+    """
+        Mention page test case
+    """
+
+    def test_mentions_url_exists_at_location(self):
+        # Test that mention page location returns 200
+        response = self.client.get('/mentions/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_mentions_url_by_name(self):
+        # Test that mention page name returns 200
+        response = self.client.get(reverse('mentions'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_mentions_url_uses_correct_template(self):
+        # Test that mention page uses a correct template
+        response = self.client.get(reverse('mentions'))
+        self.assertTemplateUsed(response, 'products/mentions.html')
