@@ -109,7 +109,9 @@ Comme indiqué précédemment, ces variables d'environnement sont appelées dans
 Des tests unitaires et fonctionnels sont disponibles dans le répertoire **[./products/tests](https://github.com/Eidocode/OC_Project8/tree/main/products/tests)** ainsi qu'à la racine de l'application **[Users](https://github.com/Eidocode/OC_Project8/tree/main/users)**
 
 **[test_forms.py](https://github.com/Eidocode/OC_Project8/blob/main/products/tests/test_forms.py)** : Tests unitaires des formulaires
+
 **[test_models.py](https://github.com/Eidocode/OC_Project8/blob/main/products/tests/test_models.py)** : Tests unitaires des modèles
+
 **[test_views.py](https://github.com/Eidocode/OC_Project8/blob/main/products/tests/test_views.py)** : Tests unitaires des vues
 
 Un test fonctionnel nommée **[test_user_experience.py](https://github.com/Eidocode/OC_Project8/blob/main/users/test_user_experience.py)** est également disponible à la racine du répertoire **Users**. Il permet notamment de tester le parcours d'un utilisateur sur l'application. En commençant par l'inscription, l'authentification, la recherche d'un produit, l'ajout d'un substitut dans les favoris, la suppression d'un favoris puis la déconnexion. 
