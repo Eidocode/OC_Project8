@@ -131,6 +131,33 @@ class TestUserExperience(TestCase):
         favorites = Favorite.objects.all()
         self.assertEqual(len(favorites), 0)
 
+    def test_search_in_fav_url_exists_at_location(self):
+        # Test that search_in_fav page location returns 200
+        response = self.client.get('/users/favorites/search/?user_search=test')
+        self.assertEqual(response.status_code, 200)
+
+    def test_search_in_fav_url_by_name(self):
+        # Test that search_in_fav page name returns 200
+        response = self.client.get(reverse('search_fav')+'?user_search=test')
+        self.assertEqual(response.status_code, 200)
+
+    def test_bad_search_in_fav_url_returns_404(self):
+        # Test that a bad research returns 404
+        response = self.client.get(reverse('search_fav')+'user_search=test')
+        self.assertEqual(response.status_code, 404)
+
+    def test_search_in_fav_pagination_is_true(self):
+        # Test pagination
+        response = self.client.get(reverse('search_fav')+'?user_search=test')
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue('paginate' in response.context)
+        self.assertTrue(response.context['paginate'] is True)
+
+    def test_search_in_fav_url_uses_correct_template(self):
+        # Test that search_in_fav page uses a correct template
+        response = self.client.get(reverse('search_fav')+'?user_search=test')
+        self.assertTemplateUsed(response, 'favorites/search_in_fav.html')
+
     def test_product_detail(self):
         # Test detail page with an existing product
         detail_page = self.client.get(reverse(

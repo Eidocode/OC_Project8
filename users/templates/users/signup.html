@@ -1,3 +1,4 @@
+<!-- Registration page -->
 {% extends 'products/base.html' %}
 
 {% load crispy_forms_tags %}
@@ -11,23 +12,6 @@
                 <hr class="divider my-4" />
                 <h5 class="mt-0 pt-3">Qui êtes-vous</h5>
                 <br/>
-                {% comment %} <form action="" method="POST" class="ml-auto my-2 my-lg-0 pt-3 pb-5">
-                    {% csrf_token %}
-                    <div class="input-group pb-5">
-                        <input type="text" name="" class="form-control form-control-lg bg-light" placeholder="Prénom...">
-                        <input type="text" name="" class="form-control form-control-lg bg-light" placeholder="Nom...">
-                    </div>
-                    <div class="input-group pb-5">
-                        <input type="text" name="" class="form-control form-control-lg bg-light" placeholder="Username...">
-                        <input type="email" name="" class="form-control form-control-lg bg-light" placeholder="E-mail...">
-                    </div>
-                    <div class="input-group pb-5">
-                        <input type="password" name="" class="form-control form-control-lg bg-light" placeholder="Password...">
-                        <input type="password" name="" class="form-control form-control-lg bg-light" placeholder="Confirm Password...">
-                    </div>
-                    <button class="btn btn-primary" type="submit">Enregistrer</button>
-                </form> {% endcomment %}
-                
                 <form method="POST" class="ml-auto my-2 my-lg-0">
                     {% csrf_token %}
                     {{ form|crispy }}

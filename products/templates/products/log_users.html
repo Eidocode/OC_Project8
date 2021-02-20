@@ -1,9 +1,10 @@
+<!-- User navigation -->
 {% if user.is_authenticated %}
 
 <li class="nav-item">
 <a class="nav-link js-scroll-trigger" href="#account">
-    <form action="" method="get" class="ml-auto my-2 my-lg-0">
-        <input id='user-form' type="text" name="" class="form-control form-control-sm bg-grey" placeholder="Chercher...">
+    <form action="{% url 'search_fav' %}" method="get" class="ml-auto my-2 my-lg-0">
+        <input id='user-form' type="text" name="user_search" class="form-control form-control-sm bg-grey" placeholder="Chercher...">
     </form>
 </a>
 </li>

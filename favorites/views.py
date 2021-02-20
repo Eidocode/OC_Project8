@@ -45,3 +45,54 @@ def remove_from_fav(request, favorite_id):
                     favorite.products.name, favorite.products.brand))
 
     return redirect(request.META['HTTP_REFERER'])
+
+
+def search_in_fav(request):
+    """
+    Used for favorites search
+    """
+    query = request.GET.get('user_search')
+
+    if query:
+        # Returns the query in lower case and without accents
+        query = unidecode(query).lower()
+        result = True
+
+        cur_user = request.user
+        # Returns all favorites
+        favorites = Favorite.objects.all()
+
+        # Returns current user filtered favorites
+        fav_filtered = favorites.filter(
+            users_id=cur_user
+            ).filter(products__name__icontains=query).order_by('id')
+
+        if not fav_filtered.exists():
+            result = False
+            fav_filtered = favorites.filter(
+                users_id=cur_user).order_by('id')
+
+        # Init pagination with 6 products
+        paginator = Paginator(fav_filtered, 6)
+        page = request.GET.get('page')
+
+        try:
+            fav_filtered = paginator.page(page)
+        except PageNotAnInteger:
+            fav_filtered = paginator.page(1)
+        except EmptyPage:
+            fav_filtered = paginator.page(paginator.num_pages)
+
+        if result:
+            title = "Résultats de la recherche : {}".format(query)
+        else:
+            title = "Aucun résultat pour la recherche : {}".format(query)
+
+        context = {
+                'is_result': result,
+                'fav_filtered': fav_filtered,
+                'title': title,
+                'paginate': True,
+            }
+
+        return render(request, 'favorites/search_in_fav.html', context)

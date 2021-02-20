@@ -47,39 +47,3 @@ class SearchForm(forms.Form):
             ])
 
         return search
-
-
-class UserForm(forms.Form):
-
-    user_search = forms.CharField(
-        max_length=30,
-        widget=forms.TextInput(attrs={
-            'class': 'form-control form-control-sm bg-grey',
-            'placeholder': 'Chercher...'
-        }),
-        required=True
-    )
-
-    def clean(self):
-        super(UserForm, self).clean()
-        user_search = self.cleaned_data.get('user_search')  # Gets search input
-
-        # Returns an error if the search length is < 2
-        if len(user_search) < 2:
-            self._errors['user_search'] = self.error_class([
-                'Saisir, au minimum, deux caractères pour valider la recherche'
-            ])
-
-        # Returns an error if the search contains a special char (except quote)
-        if bool(re.search(r"([^\w ^'])", user_search)):
-            self._errors['user_search'] = self.error_class([
-                'Les caractères spéciaux ne sont pas autorisés'
-            ])
-
-        # Returns an error if the search contains a number
-        if bool(re.search(r"\d", user_search)):
-            self._errors['user_search'] = self.error_class([
-                'Les chiffres ne sont pas autorisés'
-            ])
-
-        return user_search
