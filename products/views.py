@@ -4,7 +4,7 @@ from random import randrange
 from unidecode import unidecode
 
 from .models import Product, Category, Favorite
-from .forms import SearchForm
+from .forms import SearchForm, UserForm
 
 
 def index(request):
@@ -167,3 +167,50 @@ def search(request):
     else:
         print('le formulaire n est pas valide')
         return render(request, 'products/index.html', {'form': form})
+
+
+def search_in_fav(request):
+
+    query = unidecode(request.GET.get('user_search')).lower()
+
+    form = UserForm(request.GET)
+
+    if form.is_valid():
+        result = True
+
+        cur_user = request.user
+        favorites = Favorite.objects.all()
+
+        fav_filtered = favorites.filter(
+            users_id=cur_user
+            ).filter(products_name__icontains=query)
+        
+        if not fav_filtered.exists():
+            result = False
+            fav_filtered = favorites.filter(
+                users_id=cur_user).order_by('id')
+    
+    paginator = Paginator(fav_filtered, 6)
+    page = request.GET.get('page')
+
+    try:
+        fav_filtered = paginator.page(page)
+    except PageNotAnInteger:
+        fav_filtered = paginator.page(1)
+    except EmptyPage:
+        fav_filtered = paginator.page(paginator.num_pages)
+
+    if result:
+        title = "Résultats de la recherche : {}".format(query)
+    else:
+        title = "Aucun résultat pour la recherche : {}".format(query)
+    
+    context = {
+            'is_result': result,
+            'fav_filtered': fav_filtered,
+            'title': title,
+            'paginate': True,
+            'form': form
+        }
+        
+
