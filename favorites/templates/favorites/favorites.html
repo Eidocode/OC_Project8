@@ -41,7 +41,7 @@
                                 </a>
 
                                 <div class="mb-5 mt-3">
-                                    <a class="btn btn-outline-primary btn-sm" href={% url 'del_fav' favorite_id=product.id %} role="button">
+                                    <a id="delete{{ forloop.counter }}" class="btn btn-outline-primary btn-sm" href={% url 'del_fav' favorite_id=product.id %} role="button">
                                         <i class="fas fa-minus-circle" aria-hidden="true"></i>
                                         &nbsp Supprimer
                                     </a>

@@ -35,7 +35,7 @@
                                 {% if sub.id in fav_prods_id %}
 
                                     <div class="mb-5 mt-3">
-                                        <button class="btn btn-outline-secondary btn-sm" role="button" title="Produit déjà enregistré" disabled>
+                                        <button id="save{{ forloop.counter }}" class="btn btn-outline-secondary btn-sm" role="button" title="Produit déjà enregistré" disabled>
                                             <i class="fas fa-save" aria-hidden="true"></i>
                                             &nbsp Enregistrer
                                         </button>
@@ -44,7 +44,7 @@
                                 {% else %}
 
                                     <div class="mb-5 mt-3">
-                                        <a class="btn btn-outline-primary btn-sm" href={% url 'add_fav' product_id=sub.id %} role="button">
+                                        <a id="save{{ forloop.counter }}" class="btn btn-outline-primary btn-sm" href={% url 'add_fav' product_id=sub.id %} role="button" >
                                             <i class="fas fa-save" aria-hidden="true"></i>
                                             &nbsp Enregistrer
                                         </a>

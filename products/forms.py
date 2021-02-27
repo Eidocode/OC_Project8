@@ -18,6 +18,7 @@ class SearchForm(forms.Form):
     search = forms.CharField(
         max_length=30,
         widget=forms.TextInput(attrs={
+            'id': 'id_search',
             'class': 'form-control form-control-lg bg-light',
             'placeholder': 'Rechercher un produit...'
         }),
