@@ -1,4 +1,5 @@
 
+
 # Créez une plateforme pour amateurs de Nutella
 
 *Parcours développeur d'application Python : OpenClassrooms Projet n°8*
@@ -114,5 +115,15 @@ Des tests unitaires et fonctionnels sont disponibles dans le répertoire **[./pr
 
 **[test_views.py](https://github.com/Eidocode/OC_Project8/blob/main/products/tests/test_views.py)** : Tests unitaires des vues
 
-Un test fonctionnel nommée **[test_user_experience.py](https://github.com/Eidocode/OC_Project8/blob/main/users/test_user_experience.py)** est également disponible à la racine du répertoire **Users**. Il permet notamment de tester le parcours d'un utilisateur sur l'application. En commençant par l'inscription, l'authentification, la recherche d'un produit, l'ajout d'un substitut dans les favoris, la suppression d'un favoris puis la déconnexion. 
+Un test fonctionnel nommé **[test_user_experience.py](https://github.com/Eidocode/OC_Project8/blob/main/users/test_user_experience.py)** est également disponible à la racine du répertoire **Users**. Il permet notamment de tester le parcours d'un utilisateur sur l'application. En commençant par l'inscription, l'authentification, la recherche d'un produit, l'ajout d'un substitut dans les favoris, la suppression d'un favoris puis la déconnexion. 
 Cela afin de s'assurer que les différents éléments fonctionnent correctement ensemble.
+
+L'application **Users** contient également un test d'intégration nommé **[app_integration_test](https://github.com/Eidocode/OC_Project8/blob/main/users/app_integration_test.py)**. Celui-ci est complémentaire au précédent, puisqu'il va globalement utiliser le même parcours utilisateur mais en s'appuyant cette fois sur un navigateur et donc en interagissant directement avec les éléments interactifs de l'application. Nous utilisons pour cela **Selenium** qu'il suffit d'installer avec la commande : 
+
+        pip install selenium
+
+Pour l'utiliser, il est nécessaire de télécharger un "**WebDriver**". Dans le cas présent, j'ai utilisé celui de **Chrome**, mais il est tout à fait possible d'utiliser un autre driver en relation avec le navigateur que nous souhaitons utiliser. Il suffira de le mentionner au niveau de la méthode **setUp** de la classe : 
+
+	self.driver = webdriver.Chrome()
+
+Bien entendu, il faudra consulter la documentation de **Selenium** et du navigateur afin de configurer correctement le test.
