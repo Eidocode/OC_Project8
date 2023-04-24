@@ -67,7 +67,7 @@ A savoir que le projet a été testé sur des versions **3.6** et **3.7** de **P
         
 5. **Configuration de l'application** :
 
-Pour fonctionner, l'application utilise des variables d'environnement qui sont appelées dans le fichier de configuration du projet **[setting.py](https://github.com/Eidocode/OC_Project8/blob/main/purbeurre_project/settings.py)**.
+Pour fonctionner, l'application utilise des variables d'environnement qui sont appelées dans le fichier de configuration du projet **[settings.py](https://github.com/Eidocode/OC_Project8/blob/main/purbeurre_project/settings.py)**.
 Une première variable **['SECRET_KEY']** qui doit être générée aléatoirement et liée uniquement à l'installation en cours du projet. Il est indispensable que cette clé ne soit pas visible ou facilement accessible.
 Pour la générer, il est possible de le faire directement depuis une **console Python** de la façon suivante : 
 
